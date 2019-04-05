@@ -1,16 +1,15 @@
 exports.auth = (fn, allowedRoles) => {
   return (payload, callbacks, id) => {
-    console.log('PAYLOAD!!!!!!!!!!!', payload, callbacks)
     const {send, reply} = callbacks
     const {session} = payload
 
     if(!session){
-      reply('message unauthorized', {})
+      reply('authorization failed')
       return
     }
 
     if(allowedRoles && allowedRoles.length && !allowedRoles.includes(session.role)) {
-      reply('message unauthorized', {})
+      reply('unauthorized access')
       return
     }
 
